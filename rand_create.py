@@ -1,4 +1,4 @@
-from pathlib import Path
+
 import os
 import argparse
 import random
@@ -54,7 +54,11 @@ def create_subdirs(dirs, curr_path):
     for dir in range(0, dirs):
         d_name= create_dname()
         current_path = os.path.join(curr_path, d_name)
-        Path(current_path).mkdir()
+        try:
+            os.mkdir(current_path)
+        except OSError:
+            print('Not so lucky! A directory take exactly an existed name so \
+                    faile to be created.')
         #files_for_subdir = int(n/dirs)
         #create_files(files_for_subdir, size, exts, current_path)
         new_dirs.append(current_path)
@@ -65,8 +69,12 @@ def main(args):
     #Just a toy.
     print(args)
     
-    if Path(args.path).is_dir() is False:
-        Path(args.path).mkdir()
+    if not os.path.isdir(args.path):
+        try:
+            os.mkdir(args.path)
+        except OSError:
+            print('Error: faile to create', args.path, 'directory.')
+            exit(1)
     path = args.path
     sub_dirs = []
     if args.existing:
