@@ -27,6 +27,26 @@ def create_fname(ext):
     return name
 
 
+def create_files(n, size, exts, curr_path):
+    for file in range(0, n):
+        f_name = create_fname(exts)
+        f = open(os.path.join(curr_path, f_name), 'w')
+        curr_size = 0
+        while curr_size < size: 
+            f.write(create_garbage())
+            curr_size = f.tell()
+        f.close()
+
+
+def create_subdirs(dirs, n, size, exts, curr_path):
+    for dir in range(0, dirs):
+        d_name= create_dname()
+        current_path = os.path.join(curr_path, d_name)
+        Path(current_path).mkdir()
+        files_for_subdir = int(n/dirs)
+        create_files(files_for_subdir, size, exts, current_path)
+
+
 def main(args):
     #Just a toy.
     print(args)
@@ -35,20 +55,10 @@ def main(args):
         Path(args.path).mkdir()
     path = args.path
 
-    for dir in range(0, args.directories):
-        d_name= create_dname()
-        current_path = os.path.join(path, d_name)
-        Path(current_path).mkdir()
-    
-        files_for_subdir = int(args.files/args.directories)
-        for file in range(0, files_for_subdir):
-            f_name = create_fname(args.ext_list)
-            f = open(os.path.join(current_path, f_name), 'w')
-            size = 0
-            while size < args.size: 
-                f.write(create_garbage())
-                size = f.tell()
-            f.close()
+    if args.directories == 0:
+        create_files(args.files, args.size, args.ext_list, path)
+    else:
+        create_subdirs(args.directories, args.files, args.size, args.ext_list, path)
 
 
 
