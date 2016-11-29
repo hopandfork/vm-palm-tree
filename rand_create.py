@@ -1,3 +1,4 @@
+'''This file contains source codes to generate fake files and directories'''
 
 import os
 import argparse
