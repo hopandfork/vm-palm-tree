@@ -100,8 +100,8 @@ if __name__ == '__main__':
     parser.add_argument('path', type=str, 
                         help='path where create new dirs & files')
 
-    parser.add_argument('size', type=float, 
-                        help='average size of files to be generated in MB')
+    parser.add_argument('size', type=int, 
+                        help='average size of files to be generated in bytes')
 
     args = parser.parse_args()
     main(args)
