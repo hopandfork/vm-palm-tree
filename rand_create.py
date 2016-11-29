@@ -21,14 +21,16 @@ def create_garbage(size):
 '''Create a random name for a directory'''
 def create_dname():
     max = random.randint(3, 20)
-    name = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(0, max))
+    name = ''.join(random.choice(string.ascii_letters + string.digits)\
+            for _ in range(0, max))
     return name
 
 
 '''Create a random name for a file'''
 def create_fname(ext):
     max = random.randint(3, 50)
-    name = ''.join(random.choice(string.ascii_letters + ' ' + string.digits) for _ in range(0, max)).strip() + '.' + ext
+    name = ''.join(random.choice(string.ascii_letters + ' ' + string.digits)\
+            for _ in range(0, max)).strip() + '.' + ext
     return name
 
 
@@ -91,7 +93,7 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description= 'This tool is intended to \
-    create directory & files with random contents, random (or optionally real) \
+    create directory & files with random contents, random (or optionally real)\
     name and real extensions (by default mostly used).')
 
     group = parser.add_mutually_exclusive_group()
@@ -99,29 +101,32 @@ if __name__ == '__main__':
     parser.add_argument('files', metavar= 'N', type=int,  
                        help='number of files to be generated')
 
-    parser.add_argument('-d', '--directories', metavar='M', type=int, default=0,
-                       help='number of directories to be generated (default: zero)')
+    parser.add_argument('-d', '--directories', metavar='M', type=int, 
+                        default=0, help='number of directories to be generated\
+                        (default: zero)')
 
     parser.add_argument('-r', '--real', action='store_true',
                        help='use real name for files and directories')
 
     group.add_argument('--ext-file', metavar='filename', type=str,
-                       help='file containing a list of type of file extensions to be \
-                       generated')
+                       help='file containing a list of type of file extensions\
+                        to be generated')
 
-    group.add_argument('--ext-list', metavar=('pdf', 'doc'), type=str, nargs='+',
-                       default=['jpg', 'png', 'mp3', 'pdf', 'doc', 'docx', 'ppt',
-                       'zip', 'avi', 'mp4'], help='type of file extensions to be \
-                       generated (default=["jpg", "png", "mp3", "pdf", "doc", \
-                       "docx", "ppt", "zip", "avi", "mp4"])')
+    group.add_argument('--ext-list', metavar=('pdf', 'doc'), type=str, 
+                        nargs='+',
+                        default=['jpg', 'png', 'mp3', 'pdf', 'doc', 'docx', 
+                        'ppt', 'zip', 'avi', 'mp4'], help='type of file\
+                        extensions to be generated (default=["jpg", "png",\
+                        "mp3", "pdf", "doc", "docx", "ppt", "zip", "avi",\
+                        "mp4"])')
 
     parser.add_argument('-l', '--level', type=int, default=0,
-                        help='number of nested directories to be generated \
+                        help='number of nested directories to be generated\
                         (default: no nested-dir)')
 
     parser.add_argument('-e', '--existing', action='store_true',
-                        help='use already existing sub-directories as first nested\
-                        level (default: do not use already existing \
+                        help='use already existing sub-directories as first\
+                        nested level (default: do not use already existing\
                         sub-directories)')
 
     parser.add_argument('path', type=str, 
