@@ -14,7 +14,7 @@ def convert_arg_line_to_args(self, arg_line):
 
 
 def create_garbage(size):
-"""Create around size bytes of garbage"""
+    """Create around size bytes of garbage"""
     approx = int(size/1000)
     max = random.randint(size - approx,size + approx)
     chapter = ''.join(random.choice(string.printable) for _ in range(0, max))
@@ -22,7 +22,7 @@ def create_garbage(size):
 
 
 def create_dname():
-"""Create a random name for a directory"""
+    """Create a random name for a directory"""
     max = random.randint(3, 20)
     name = ''.join(random.choice(string.ascii_letters + string.digits)\
             for _ in range(0, max))
@@ -30,7 +30,7 @@ def create_dname():
 
 
 def create_fname(ext):
-"""Create a random name for a file"""
+    """Create a random name for a file"""
     max = random.randint(3, 50)
     name = ''.join(random.choice(string.ascii_letters + ' ' + string.digits)\
             for _ in range(0, max)).strip() + '.' + ext
@@ -38,7 +38,7 @@ def create_fname(ext):
 
 
 def create_file(size, exts, path):
-"""Create a single file on a given path"""
+    """Create a single file on a given path"""
     f_name = create_fname(exts)
     f = open(os.path.join(path, f_name), 'w')
     f.write(create_garbage(size))
@@ -46,7 +46,7 @@ def create_file(size, exts, path):
 
 
 def create_files(n, size, exts, paths):
-"""Create files on a set of dirs"""
+    """Create files on a set of dirs"""
     files_for_dir = int(n / len(paths))
     for dir in paths:
         for file in range(0, files_for_dir):
@@ -54,7 +54,7 @@ def create_files(n, size, exts, paths):
 
 
 def create_subdirs(dirs, curr_path):
-"""Create sub-directories"""
+    """Create sub-directories"""
     new_dirs = []
     for dir in range(0, dirs):
         d_name= create_dname()
