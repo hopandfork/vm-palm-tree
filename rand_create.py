@@ -8,7 +8,7 @@ import random
 import string
 
 
-# Useful override so that treats each space-separated word as an argument. 
+# Useful override so that treats each space-separated word as an argument.
 def convert_arg_line_to_args(self, arg_line):
     return arg_line.split()
 
@@ -16,7 +16,7 @@ def convert_arg_line_to_args(self, arg_line):
 def create_garbage(size):
     """Create around size bytes of garbage"""
     approx = int(size/1000)
-    max = random.randint(size - approx,size + approx)
+    max = random.randint(size - approx, size + approx)
     chapter = ''.join(random.choice(string.printable) for _ in range(0, max))
     return chapter
 
@@ -24,7 +24,7 @@ def create_garbage(size):
 def create_dname():
     """Create a random name for a directory"""
     max = random.randint(3, 20)
-    name = ''.join(random.choice(string.ascii_letters + string.digits)\
+    name = ''.join(random.choice(string.ascii_letters + string.digits)
             for _ in range(0, max))
     return name
 
@@ -32,7 +32,7 @@ def create_dname():
 def create_fname(ext):
     """Create a random name for a file"""
     max = random.randint(3, 50)
-    name = ''.join(random.choice(string.ascii_letters + ' ' + string.digits)\
+    name = ''.join(random.choice(string.ascii_letters + ' ' + string.digits)
             for _ in range(0, max)).strip() + '.' + ext
     return name
 
@@ -57,27 +57,25 @@ def create_subdirs(dirs, curr_path):
     """Create sub-directories"""
     new_dirs = []
     for dir in range(0, dirs):
-        d_name= create_dname()
+        d_name = create_dname()
         current_path = os.path.join(curr_path, d_name)
         try:
             os.mkdir(current_path)
         except OSError:
             print('Not so lucky! A directory take exactly an existed name so \
                     faile to be created.')
-        #files_for_subdir = int(n/dirs)
-        #create_files(files_for_subdir, size, exts, current_path)
         new_dirs.append(current_path)
     return new_dirs
 
 
 def _parseargs():
-    parser = argparse.ArgumentParser(description= 'This tool is intended to \
+    parser = argparse.ArgumentParser(description='This tool is intended to \
     create directory & files with random contents, random (or optionally real)\
     name and real extensions (by default mostly used).')
 
     group = parser.add_mutually_exclusive_group()
 
-    parser.add_argument('files', metavar= 'N', type=int,
+    parser.add_argument('files', metavar='N', type=int,
                        help='number of files to be generated')
 
     parser.add_argument('-d', '--directories', metavar='M', type=int,
@@ -94,10 +92,10 @@ def _parseargs():
     group.add_argument('--ext-list', metavar=('pdf', 'doc'), type=str,
                         nargs='+',
                         default=['jpg', 'png', 'mp3', 'pdf', 'doc', 'docx',
-                        'ppt', 'zip', 'avi', 'mp4'], help='type of file\
-                        extensions to be generated (default=["jpg", "png",\
-                        "mp3", "pdf", "doc", "docx", "ppt", "zip", "avi",\
-                        "mp4"])')
+                            'ppt', 'zip', 'avi', 'mp4'], help='type of file\
+                            extensions to be generated (default=["jpg", "png",\
+                            "mp3", "pdf", "doc", "docx", "ppt", "zip", "avi",\
+                            "mp4"])')
 
     parser.add_argument('-l', '--level', type=int, default=0,
                         help='number of nested directories to be generated\
@@ -119,7 +117,7 @@ def _parseargs():
 
 
 def main(args):
-    #Just a toy.
+    # Just a toy.
     print(args)
 
     if not os.path.isdir(args.path):
@@ -135,7 +133,7 @@ def main(args):
             sub_dirs.append(os.path.join(path, entry))
     if args.directories != 0:
         sub_dirs.extend(create_subdirs(args.directories, path))
-    if len(sub_dirs) == 0:      #use root path ONLY if no other dirs are used
+    if len(sub_dirs) == 0:      # use root path ONLY if no other dirs are used
         sub_dirs.append(path)
 
     create_files(args.files, args.size, args.ext_list, sub_dirs)
